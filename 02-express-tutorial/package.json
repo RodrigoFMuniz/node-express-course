@@ -4,7 +4,9 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start": "nodemon app.js"
+    "start": "nodemon app.js",
+    "dev": ".\\node_modules\\.bin\\eslint --fix app.js",
+    "check": ".\\node_modules\\.bin\\eslint app.js"
   },
   "keywords": [],
   "author": "",
