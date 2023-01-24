@@ -1,3 +1,4 @@
+const { readFileSync } = require('fs');
 const http = require('http');
 
 const PORT = 5000;
@@ -9,9 +10,11 @@ const server = http.createServer((req, res) => {
   // console.log(req.headers['accept-language']);
   // console.log(req.headers.referer);
   // console.log(req.headers['accept-patch']);
+  const home = readFileSync('.\\index.html');
+
   if (req.url === '/') {
     res.writeHead(200, { 'content-type': 'text/html' });
-    res.write('<h1>Home page</h1>');
+    res.write(home);
     res.end();
   }
   if (req.url === '/about') {
