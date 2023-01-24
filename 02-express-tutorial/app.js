@@ -2,7 +2,7 @@ const http = require('http');
 
 const PORT = 5000;
 const server = http.createServer((req, res) => {
-  res.end(`${req.url} , ${req.statusCode}`);
+  res.end('Home page');
 });
 
 server.listen(PORT, () => {
