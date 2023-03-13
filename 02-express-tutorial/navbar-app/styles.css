@@ -174,9 +174,13 @@ nav {
   transition: var(--transition);
   cursor: pointer;
 }
+
+.rodar{
+  transform: rotate(90deg);
+}
 .nav-toggle:hover {
   color: var(--clr-primary-1);
-  transform: rotate(90deg);
+  /* transform: rotate(90deg); */
 }
 .logo {
   height: 40px;
