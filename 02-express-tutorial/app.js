@@ -31,6 +31,11 @@ app.get('/api/products/url/:productId', (req, res) => {
   res.status(200).json(newProduct);
 });
 
+app.get('/api/products/:productId/reviews/:reviewsId', (req, res)=>{
+  console.log(req.params)
+  res.send('Hello world')
+})
+
 app.all('*', (req, res) => {
   res.status(404).send('<h1>Resource not found<h1>');
 });
