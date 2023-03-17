@@ -31,10 +31,25 @@ app.get('/api/products/url/:productId', (req, res) => {
   res.status(200).json(newProduct);
 });
 
-app.get('/api/products/:productId/reviews/:reviewsId', (req, res)=>{
-  console.log(req.params)
-  res.send('Hello world')
-})
+app.get('/api/products/:productId/reviews/:reviewsId', (req, res) => {
+  console.log(req.params);
+  res.send('Hello world');
+});
+
+app.get('/api/v1/query', (req, res) => {
+  // console.log(req.query)
+  const { search, limit } = req.query;
+  let sortedProducts = [...products];
+
+  if (search) {
+    sortedProducts = sortedProducts.filter((product) => product.name.startsWith(search));
+  }
+
+  if (limit) {
+    sortedProducts = sortedProducts.slice(0, Number(limit));
+  }
+  res.status(200).send(sortedProducts);
+});
 
 app.all('*', (req, res) => {
   res.status(404).send('<h1>Resource not found<h1>');
