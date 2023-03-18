@@ -12,7 +12,8 @@ app.get('/', (req, res) => {
   res.send('Home');
 });
 app.get('/about', (req, res) => {
-  res.send('About');
+  console.log(req.user);
+  res.send(`About logged ${req.user.name}`);
 });
 app.get('/product', (req, res) => {
   res.send('Product');
