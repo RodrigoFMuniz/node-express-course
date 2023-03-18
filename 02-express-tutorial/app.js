@@ -2,9 +2,11 @@ const express = require('express');
 
 const app = express();
 
-const {logger} = require('./logger');
+const { logger } = require('./logger');
 
-app.use('/about', logger)
+const authorize = require('./authorize');
+
+app.use('/about', [logger, authorize]);
 
 app.get('/', (req, res) => {
   res.send('Home');

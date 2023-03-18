@@ -1,11 +1,11 @@
 // req => middleware => res
-const logger = (req, res, next)=>{
-  const method = req.method;
-  const url = req.url;
+const logger = (req, res, next) => {
+  const { method } = req;
+  const { url } = req;
   const time = new Date().getFullYear();
   console.log(method, url, time);
   // res.send('Middleware')
-  next()
-}
+  next();
+};
 
-module.exports = { logger }
+module.exports = { logger };
