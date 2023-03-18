@@ -42,13 +42,18 @@ app.get('/api/v1/query', (req, res) => {
   let sortedProducts = [...products];
 
   if (search) {
-    sortedProducts = sortedProducts.filter((product) => product.name.startsWith(search));
+    sortedProducts = sortedProducts.filter((product) => product.name.includes(search));
+    // sortedProducts = sortedProducts.filter((product) => product.name.startsWith(search));
   }
 
   if (limit) {
     sortedProducts = sortedProducts.slice(0, Number(limit));
   }
-  res.status(200).send(sortedProducts);
+
+  if (sortedProducts < 1) {
+    return res.status(200).json({ success: true, data: [] });
+  }
+  return res.status(200).json(sortedProducts);
 });
 
 app.all('*', (req, res) => {
