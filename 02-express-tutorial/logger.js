@@ -4,6 +4,8 @@ const logger = (req, res, next) => {
   const { url } = req;
   const time = new Date().getFullYear();
   console.log(method, url, time);
+ 
+  req.values = { method, url, time }
   // res.send('Middleware')
   next();
 };
