@@ -26,7 +26,6 @@ function compare(a, b) {
   return 0;
 }
 
-
 app.get('/api/people', (req, res) => {
   // const newPeople = people.sort((a, b) => (a.id < b.id) ? -1 : (a.id > b.id) ? 1 : 0);
   const newPeople = people.sort(compare);
@@ -47,6 +46,8 @@ app.post('/api/people', (req, res) => {
   if (!req.body.id) return res.status(400).json({ success: false, msg: 'Missing id' });
   const alreadyExists = people.some((p) => p.id === Number(req.body.id));
   if (alreadyExists) return res.status(400).json({ success: false, msg: 'Already exists' });
+  const nameAlreadyExists = people.some((p) => p.name === req.body.name);
+  if (nameAlreadyExists) return res.status(400).json({ success: false, msg: 'Name Already exists' });
   people.push(req.body);
   return res.status(201).json({ success: true, person: req.body });
 });
@@ -64,6 +65,18 @@ app.put('/api/people/:id', (req, res) => {
   if (name === undefined || name === '' || name === false) return res.status(404).json({ success: false, msg: 'Please, provide a name' });
   person.name = name;
   return res.status(200).json({ success: true, msg: person });
+});
+
+app.delete('/api/people/:id', (req, res) => {
+  const { id } = req.params;
+  const person = people.find((p) => p.id === Number(id));
+
+  console.log(person);
+  if (!person) return res.status(404).json({ sucess: false, msg: 'Person not found' });
+
+  console.log(people.splice(person.id - 1, 1));
+
+  return res.status(204).json({ success: true, msg: 'Person deleted' });
 });
 
 app.listen(5000, () => {
