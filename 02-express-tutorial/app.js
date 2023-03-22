@@ -10,7 +10,6 @@ const auth = require('./routes/auth');
 app.use(express.static('./methods-public'));
 // parse form data
 app.use(express.urlencoded({ extended: false }));
-
 // parse jsons
 app.use(express.json());
 
