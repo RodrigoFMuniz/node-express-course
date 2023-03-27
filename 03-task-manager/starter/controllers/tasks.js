@@ -4,9 +4,13 @@ const getTasks = (req,res) =>{
     res.status(200).json({msg: 'get all tasks'})
 }
 const createTask = async (req,res) =>{
-    const task = await Task.create(req.body)
-    console.log(task)
-    res.status(201).json({task})
+    try{
+        console.log(req.body)
+        const task = await Task.create(req.body)
+        res.status(201).json({detail: task})
+    } catch(err){
+        res.status(500).json({msg: err.message})
+    }
 }
 const getTaskById = (req,res) =>{
     const {id} = req.params

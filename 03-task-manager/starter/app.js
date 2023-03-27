@@ -12,6 +12,7 @@ const PORT = 3000;
 
 // middlewares
 
+app.use(express.static('./public'))
 app.use(express.json())
 
 // routes
