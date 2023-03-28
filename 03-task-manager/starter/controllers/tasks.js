@@ -20,8 +20,13 @@ const createTask = async (req,res) =>{
 const getTaskById = async (req,res) =>{
     const {id} = req.params
     try {
-        const query = Task.where({_id: id})
-        const task = await query.findOne()
+        // const query = Task.where({_id: id})
+        // const task = await query.findOne()
+        const task = await Task.findOne({_id: id})
+        if(!task){
+            res.status(404).json({msg: err})
+            return;
+        }
         res.status(200).json({task})
     }catch( err){
         res.status(404).json({msg: err})
