@@ -22,11 +22,10 @@ const getTaskById = async (req,res) =>{
     try {
         // const query = Task.where({_id: id})
         // const task = await query.findOne()
-        // const task = await Task.findOne({_id: id})
-        const task = await Task.findById(id)
+        const task = await Task.findOne({_id: id})
+        // const task = await Task.findById(id)
         if(!task){
-            res.status(404).json({msg: err})
-            return;
+           return  res.status(404).json({msg: `No tasks with id ${id}`})
         }
         return res.status(200).json({task})
     }catch( err){
