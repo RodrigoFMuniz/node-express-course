@@ -30,7 +30,7 @@ const getTaskById = async (req,res) =>{
         }
         return res.status(200).json({task})
     }catch( err){
-        return res.status(404).json({msg: err})
+        return res.status(500).json({msg: err})
     }
 }
 const updateTask = (req,res) =>{
