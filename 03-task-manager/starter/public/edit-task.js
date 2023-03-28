@@ -6,7 +6,7 @@ const editBtnDOM = document.querySelector('.task-edit-btn')
 const formAlertDOM = document.querySelector('.form-alert')
 const params = window.location.search
 const id = new URLSearchParams(params).get('id')
-let tempName
+let tempName = ''
 
 const showTask = async () => {
   try {
@@ -36,11 +36,13 @@ editFormDOM.addEventListener('submit', async (e) => {
     const taskCompleted = taskCompletedDOM.checked
 
     const {
-      data: { task },
+      data: { task }
     } = await axios.patch(`/api/v1/tasks/${id}`, {
       name: taskName,
       completed: taskCompleted,
     })
+
+    console.log(task)
 
     const { _id: taskID, completed, name } = task
 
