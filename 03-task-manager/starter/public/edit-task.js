@@ -4,6 +4,7 @@ const taskCompletedDOM = document.querySelector('.task-edit-completed')
 const editFormDOM = document.querySelector('.single-task-form')
 const editBtnDOM = document.querySelector('.task-edit-btn')
 const formAlertDOM = document.querySelector('.form-alert')
+const ErrMsgDOM = document.querySelector('#error-msg')
 const params = window.location.search
 const id = new URLSearchParams(params).get('id')
 let tempName = ''
@@ -22,7 +23,12 @@ const showTask = async () => {
       taskCompletedDOM.checked = true
     }
   } catch (error) {
-    console.log(error)
+    ErrMsgDOM.style.visibility = 'visible'
+    ErrMsgDOM.innerHTML = `<p>Task  { ${id} } Not Found</p>`
+    setTimeout(() => {
+      ErrMsgDOM.innerHTML = ''
+      ErrMsgDOM.style.visibility = 'hidden'
+    }, 3000);
   }
 }
 

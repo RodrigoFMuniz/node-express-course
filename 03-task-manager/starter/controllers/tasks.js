@@ -28,9 +28,9 @@ const getTaskById = async (req,res) =>{
             res.status(404).json({msg: err})
             return;
         }
-        res.status(200).json({task})
+        return res.status(200).json({task})
     }catch( err){
-        res.status(404).json({msg: err})
+        return res.status(404).json({msg: err})
     }
 }
 const updateTask = (req,res) =>{
