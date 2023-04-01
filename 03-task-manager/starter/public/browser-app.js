@@ -1,5 +1,6 @@
 const tasksDOM = document.querySelector('.tasks')
 const loadingDOM = document.querySelector('.loading-text')
+const genericErrorDOM = document.querySelector('.generic-error')
 const formDOM = document.querySelector('.task-form')
 const taskInputDOM = document.querySelector('.task-input')
 const formAlertDOM = document.querySelector('.form-alert')
@@ -50,9 +51,10 @@ tasksDOM.addEventListener('click', async (e) => {
     loadingDOM.style.visibility = 'visible'
     const id = el.parentElement.dataset.id
     try {
-      console.log(await axios.delete(`/api/v1/tasks/${id}`))
+      await axios.delete(`/api/v1/tasks/${id}`)
       showTasks()
     } catch (error) {
+      genericErrorDOM.innerHTML=`Error: ${error}`
       console.log(error)
     }
   }
@@ -67,7 +69,6 @@ formDOM.addEventListener('submit', async (e) => {
 
   try {
     await axios.post('/api/v1/tasks', { name })
-    console.log(name)
     // showTasks()
     taskInputDOM.value = ''
     formAlertDOM.style.display = 'block'
