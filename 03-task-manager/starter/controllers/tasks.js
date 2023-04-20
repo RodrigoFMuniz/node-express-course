@@ -23,6 +23,7 @@ const createTask = async (req,res) =>{
 
 const getTaskById = async (req,res) =>{
     const {id} = req.params
+    console.log(id)
     try {
         // const query = Task.where({_id: id})
         // const task = await query.findOne()
@@ -31,7 +32,8 @@ const getTaskById = async (req,res) =>{
         if(!task){
            return  res.status(404).json({msg: `No tasks with id ${id}`})
         }
-        return res.status(200).json([task])
+        console.log(task)
+        return res.status(200).json(task)
     }catch( err){
         return res.status(500).json({msg: err})
     }
@@ -40,7 +42,8 @@ const getTaskById = async (req,res) =>{
 const updateTask = async (req,res) =>{
     const {id: taskID} = req.params
     const body = req.body
-    console.log(taskID, body)
+    console.log(taskID)
+    console.log(body)
 
     try{
         const task = await Task.findByIdAndUpdate({_id: taskID}, body )
@@ -58,9 +61,10 @@ const deleteTask = async (req,res) =>{
     const {id: taskID} = req.params
     try {  
         const task = await Task.findOneAndDelete({_id: taskID})
+        console.log(taskID)
         console.log(task)
         if(!task){
-            return res.status(404).json(`No tasks with id ${taskID}`)
+            return res.status(404).json({msg:`No tasks with id ${taskID}`})
         }
         return res.status(200).json(task)
     }catch(err){
