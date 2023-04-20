@@ -4,7 +4,7 @@ const getTasks = async (req,res) =>{
     try {
         const tasks = await Task.find({})
         console.log(tasks)
-        res.status(200).json(tasks)
+        res.status(200).json({'tasks':tasks})
     }catch(err){
         res.status(404).json({msg: err})
     }
@@ -15,7 +15,8 @@ const createTask = async (req,res) =>{
         console.log(req.body)
         const task = await Task.create(req.body)
         console.log(task)
-        res.status(201).json({detail: task})
+        // res.status(201).json({detail: task})
+        res.status(201).json({'task': 'Success'})
     } catch(err){
         res.status(500).json({msg: err})
     }
