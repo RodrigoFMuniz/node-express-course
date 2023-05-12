@@ -44,7 +44,10 @@ const updateTask = async (req,res) =>{
     const {id: taskID} = req.params
     const body = req.body
     try{
-        const task = await Task.findByIdAndUpdate({_id: taskID}, body )
+        const task = await Task.findByIdAndUpdate({_id: taskID}, body ,{
+            new:true,
+            runValidators: true
+        })
 
         if(!task) return res.status(404).json({msg:`No tasks with id ${taskID}`})
         return res.status(200).json(task)
