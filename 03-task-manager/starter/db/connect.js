@@ -8,6 +8,6 @@ const connectDB = (url)=>{
             useFindAndModify:false,
             useCreateIndex:true
         })
-}
+    }
 
 module.exports = connectDB
