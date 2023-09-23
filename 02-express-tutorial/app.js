@@ -1,13 +1,33 @@
 const path = require('path');
 
+const {products} = require('./data')
+
 const express = require('express');
 
 const app = express();
 
 // setup static middleware
-app.use(express.static('./public'));
+// app.use(express.static('./public'));
 
 // app.get
+
+//using json approach
+
+app.get('/',(req, res)=>{
+  // return res.json({"Header":"Content Header", "Body":"Content Body"});
+  // return res.json(products)
+  res.send('<h1>Home Page</h1><a href="/api/products"> Products</a>')
+})
+
+app.get('/api/products', (req, res)=>{
+  const newProducts = products.map(p=>{
+    const {id, desc, price} = p
+    return {id, desc, price}
+  });
+  return res.json(newProducts);
+})
+
+// Using SSR approach
 
 //First method, just leaving the index.html file inside of express.static folder.
 
