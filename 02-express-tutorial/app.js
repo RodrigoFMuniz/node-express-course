@@ -37,6 +37,23 @@ app.post('/api/people', (req, res)=>{
     if(!name){
         return res.status(404).json({success: false, msg: "Please, provide a name"})
     }
-    return res.status(201).json({ sucess: true, person: name })
+    return res.status(201).json({ success: true, person: name })
 })
+
+app.put('/api/people/:personID', (req, res) =>{
+    const {personID} = req.params
+    const {name} = req.body
+
+    const person = people.find((p) => p.id === Number(personID))
+
+    if(!person){
+        return res.status(404).json({success: false, msg: "Person not found"})
+    }
+    const newPeople = [...people]
+    const newPerson = newPeople.find((p) => p.id === Number(personID))
+    newPerson.name = name
+    return res.status(200).json(newPeople)
+})
+
+
 app.listen(5000, () => console.log("server listening"))
