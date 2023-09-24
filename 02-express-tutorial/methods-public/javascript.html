@@ -76,6 +76,9 @@
           // console.log(error.response)
           formAlert.textContent = error.response.data.msg
         }
+        setTimeout(()=>{
+          formAlert.textContent = ''
+        },5000)
         input.value = ''
       })
     </script>

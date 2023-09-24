@@ -1,9 +1,13 @@
+const {people} = require('../data')
 
 const auth = (req, res, next) =>{
-    console.log(req.body)
+    // console.log(req.body)
     const {name} = req.body
-    if(name ==='Rodrigo'){
-        req.user = "Rodrigo"
+    
+    const user = people.find((person) => person.name === name)
+    
+    if(user) {
+        req.user = user
         next()
     }
     else{
