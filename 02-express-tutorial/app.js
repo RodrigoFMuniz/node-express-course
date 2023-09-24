@@ -1,30 +1,10 @@
-const express = require('express');
+const app = require('express')()
 
-const app = express()
-
-const { logger } = require('./assets/logger')
-
-const { authorized } = require('./assets/authorize')
-
-// middlewares
-
-app.use('/api', [authorized, logger ])
+const { people } = require('./data')
+// GET
 
 app.get('/', (req, res) => {
-  res.send('home');
-});
+    return res.status(200).json({"success":true, data: people})
+})
 
-app.get('/about', (req, res) => {
-  res.send('about');
-});
-
-app.get('/api/about', (req, res) => {
-    // console.log(req)
-  res.send('api/about');
-});
-
-app.get('/api/next', (req, res) => {
-  res.send('/api/next');
-});
-
-app.listen(5000, () => console.log('Listening on port 5000'))
+app.listen(5000, () => console.log("server listening"))
