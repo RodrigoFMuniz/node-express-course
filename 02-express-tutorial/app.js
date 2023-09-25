@@ -14,14 +14,6 @@ app.use(express.urlencoded({extended: false}))
 app.use('/login', auth)
 app.use(express.json())
 
-// GET
-
-app.get('/api/people', (req, res) => {
-    return res.status(200).json({"success":true, data: people})
-})
-
-// POST
-
 app.post('/login', (req, res) => {
     // console.log(req.body)
     // const {name} = req.body
@@ -31,6 +23,15 @@ app.post('/login', (req, res) => {
     // else res.status(200).send(req.body.name)
     res.status(200).send(req.user.name)
 })
+
+// GET
+
+app.get('/api/people', (req, res) => {
+    return res.status(200).json({"success":true, data: people})
+})
+
+// POST
+
 
 app.post('/api/people', (req, res)=>{
     const {name} = req.body;
@@ -49,9 +50,28 @@ app.put('/api/people/:personID', (req, res) =>{
     if(!person){
         return res.status(404).json({success: false, msg: "Person not found"})
     }
-    const newPeople = [...people]
+    const newPeople = people.map()
     const newPerson = newPeople.find((p) => p.id === Number(personID))
     newPerson.name = name
+    return res.status(200).json(newPeople)
+})
+
+app.delete('/api/people/:personID', (req, res) =>{
+    const {personID} = req.params
+
+    const person = people.find((p) => p.id === Number(personID))
+    console.log(person)
+    // console.log(people.indexOf(person))
+    
+    if(!person){
+        return res.status(404).json({success: false, msg: "Person not found"})
+    }
+    const newPeople = people.map((person)=>{
+        return person
+    })
+    const newPerson = newPeople.find((p) => p.id === Number(personID))
+    console.log(newPeople.indexOf(newPerson))
+    newPeople.splice(newPeople.indexOf(newPerson), 1)
     return res.status(200).json(newPeople)
 })
 
