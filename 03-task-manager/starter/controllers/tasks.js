@@ -13,6 +13,7 @@ const getById = (req, res) => {
 }
 const createTask = (req, res) => {
     const { id, task } = req.body
+    console.log(req.body)
     // if() {
     //     return res.status(404).json({ success: false, details: "task not found" })
     // }

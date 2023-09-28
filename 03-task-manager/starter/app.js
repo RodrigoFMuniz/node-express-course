@@ -6,7 +6,6 @@ const tasks = require('./routes/tasks')
 
 // middlewares
 
-app.use(express.urlencoded({extended: true}))
 app.use(express.json())
 
 //routes 
