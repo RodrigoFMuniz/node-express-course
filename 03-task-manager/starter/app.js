@@ -4,7 +4,12 @@ const app = express()
 
 const tasks = require('./routes/tasks')
 
+// middlewares
+
+app.use(express.urlencoded({extended: true}))
 app.use(express.json())
+
+//routes 
 
 app.use('/api/v1/tasks', tasks)
 
