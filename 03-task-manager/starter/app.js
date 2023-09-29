@@ -4,6 +4,10 @@ const app = express()
 
 const tasks = require('./routes/tasks')
 
+const connectDB = require('./db/connect')
+
+require('dotenv').config()
+
 // middlewares
 
 app.use(express.json())
@@ -12,21 +16,14 @@ app.use(express.json())
 
 app.use('/api/v1/tasks', tasks)
 
+// Launch server
+const start = async () => {
+    try {
+        await connectDB(process.env.MONGO_URI)
+        app.listen(process.env.PORT, () => console.log(`Listening on port ${process.env.PORT} task manager`))
+    } catch (error) {
+        console.log(error)
+    }
+}
 
-// // POST
-// app.post('/api/v1/tasks', (req, res) => {
-//     res.send('HOME')
-// })
-
-// // PATCH
-// app.patch('/api/v1/tasks/:id', (req, res) => {
-//     res.send('HOME')
-// })
-
-// // DELETE
-// app.delete('/api/v1/tasks/:id', (req, res) => {
-//     res.send('HOME')
-// })
-
-
-app.listen(5000, () => console.log('Listening on port 5000 task manager'))
+start()

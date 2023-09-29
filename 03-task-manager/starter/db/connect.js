@@ -1,1 +1,10 @@
-const connectionString = 'mongodb+srv://expresscourse:<password>@nodeexpresscourse.bxajbn6.mongodb.net/?retryWrites=true&w=majority'
+const mongoose = require('mongodb')
+
+const connectDB = (url) =>{
+    return mongoose.connect(url, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true
+    })
+}
+
+module.exports = connectDB
