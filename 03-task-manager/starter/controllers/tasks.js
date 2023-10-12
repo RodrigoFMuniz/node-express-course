@@ -49,13 +49,19 @@ const updateTask = (req, res) => {
     return res.status(200).json([{ success: true, details: `Updated this task ${id}` }]);
     
 }
-const deleteTask = (req, res) => {
-    const { id } = req.params
-    // if() {
-    //     return res.status(404).json({ success: false, details: "task not found" })
-    // }
+const deleteTask = async (req, res) => {
+    try{
+        const { id } = req.params
 
-    return res.status(204).json([{ success: true, details: `Deleted this task ${id}` }]);
-    
+        const task = await Task.findOneAndDelete({_id: id})
+
+        if(!task) return res.status(404).json({msg: `Task for id ${id} not found`})
+
+        // return res.status(204).json([{ success: true, details: `Deleted this task ${id}` }]);
+        return res.status(200).json([{ task}]);
+
+    }catch(error){
+        res.status(500).json({msg: error.name})
+    }
 }
 module.exports = { getAll, getById, createTask, updateTask, deleteTask }
