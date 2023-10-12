@@ -28,6 +28,7 @@ const getById = async (req, res) => {
     }
     
 }
+
 const createTask = async (req, res) => {
     console.log(req.body)
     try{
@@ -38,11 +39,9 @@ const createTask = async (req, res) => {
     catch(err){
         return res.status(500).json({"details": err.errors.name.message})
     }
-    
-    
 }
-const updateTask = async (req, res) => {
 
+const updateTask = async (req, res) => {
     try{
         const { id } = req.params
 
@@ -62,6 +61,7 @@ const updateTask = async (req, res) => {
     }
     
 }
+
 const deleteTask = async (req, res) => {
     try{
         const { id } = req.params

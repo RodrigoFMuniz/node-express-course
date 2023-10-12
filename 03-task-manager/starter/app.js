@@ -10,6 +10,8 @@ const connectDB = require('./db/connect')
 
 require('dotenv').config()
 
+const {notFound} = require('./middleware/not-found')
+
 // middlewares
 app.use(express.static('./public'))
 app.use(express.json())
@@ -19,6 +21,9 @@ app.use(express.urlencoded({extended: false}))
 
 app.use('/api/v1/tasks', tasks)
 app.use('/api/v1/test', test)
+
+
+app.use(notFound)
 
 // Launch server
 const start = async () => {
