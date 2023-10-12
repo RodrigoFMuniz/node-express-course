@@ -4,17 +4,21 @@ const app = express()
 
 const tasks = require('./routes/tasks')
 
+const test = require('./routes/test')
+
 const connectDB = require('./db/connect')
 
 require('dotenv').config()
 
 // middlewares
-
+app.use(express.static('./public'))
 app.use(express.json())
+app.use(express.urlencoded({extended: false}))
 
 //routes 
 
 app.use('/api/v1/tasks', tasks)
+app.use('/api/v1/test', test)
 
 // Launch server
 const start = async () => {
