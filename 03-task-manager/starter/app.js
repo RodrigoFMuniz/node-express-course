@@ -12,6 +12,8 @@ const {notFound} = require('./middleware/not-found')
 
 const errorHandlerMiddleware = require('./middleware/error-handler')
 
+const port = process.env.PORT || 3000
+
 // middlewares
 app.use(express.static('./public'))
 app.use('/notfound', express.static('./assets/404'))
@@ -29,7 +31,7 @@ app.use(errorHandlerMiddleware)
 const start = async () => {
     try {
         await connectDB(process.env.MONGO_URI)
-        app.listen(process.env.PORT, () => console.log(`Listening on port ${process.env.PORT} task manager`))
+        app.listen(port, () => console.log(`Listening on port ${port} task manager`))
     } catch (error) {
         console.log(error)
     }
