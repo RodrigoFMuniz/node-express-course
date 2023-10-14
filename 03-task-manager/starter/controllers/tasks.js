@@ -1,6 +1,7 @@
 const Task = require('../models/Task')
 
 const asyncWrapper = require('../middleware/async')
+const { createCustomError } = require('../errors/custom-errors')
 
 const getAll = asyncWrapper(async (req, res) => {
 
@@ -33,7 +34,7 @@ const createTask = asyncWrapper(async (req, res) => {
     // }
 })
 
-const updateTask = asyncWrapper (async (req, res) => {
+const updateTask = asyncWrapper (async (req, res, next) => {
     // try{
     const { id } = req.params
 
@@ -43,7 +44,11 @@ const updateTask = asyncWrapper (async (req, res) => {
         new: true, runValidators: true
     })
 
-    if (!task) return res.status(404).json({ msg: `task for id ${id} not found` })
+    if (!task) {
+        return next(createCustomError(`task for id ${id} not found`, 404))
+
+        // return res.status(404).json({ msg: `task for id ${id} not found` })
+    }
 
     return res.status(200).json({ task });
 
@@ -60,7 +65,9 @@ const deleteTask = asyncWrapper(async (req, res) => {
 
     const task = await Task.findOneAndDelete({ _id: id })
 
-    if (!task) return res.status(404).json({ msg: `Task for id ${id} not found` })
+    if (!task) {
+        return next(createCustomError(`task for id ${id} not found`, 404))
+    }
 
     return res.status(204).json([{ success: true, details: `Deleted this task ${id}` }]);
         // return res.status(200).json([{ task}]);

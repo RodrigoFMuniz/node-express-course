@@ -14,10 +14,11 @@ const errorHandlerMiddleware = require('./middleware/error-handler')
 
 // middlewares
 app.use(express.static('./public'))
+app.use('/notfound', express.static('./assets/404'))
 app.use(express.json())
 app.use(express.urlencoded({extended: false}))
 
-//routes 
+//routes a
 
 app.use('/api/v1/tasks', tasks)
 
