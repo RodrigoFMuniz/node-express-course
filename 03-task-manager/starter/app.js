@@ -4,13 +4,13 @@ const app = express()
 
 const tasks = require('./routes/tasks')
 
-const test = require('./routes/test')
-
 const connectDB = require('./db/connect')
 
 require('dotenv').config()
 
 const {notFound} = require('./middleware/not-found')
+
+const errorHandlerMiddleware = require('./middleware/error-handler')
 
 // middlewares
 app.use(express.static('./public'))
@@ -20,10 +20,9 @@ app.use(express.urlencoded({extended: false}))
 //routes 
 
 app.use('/api/v1/tasks', tasks)
-app.use('/api/v1/test', test)
-
 
 app.use(notFound)
+app.use(errorHandlerMiddleware)
 
 // Launch server
 const start = async () => {
